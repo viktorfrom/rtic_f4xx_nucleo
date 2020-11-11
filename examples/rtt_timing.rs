@@ -1,6 +1,6 @@
 //! examples/rtt_timing.rs
 
-// #![deny(unsafe_code)]
+#![deny(unsafe_code)]
 #![deny(warnings)]
 #![no_main]
 #![no_std]
