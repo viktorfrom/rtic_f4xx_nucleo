@@ -307,13 +307,33 @@ fn timed_loop() -> (u32, u32) {
 // handler by `panic_halt`, but besides that it should still
 // measure time (debugging in gdb of `timed_loop` must still work).
 //
+// > cargo size
+//
+// [Your answer here]
+//
+// I was able to get down to:
+// cargo size --example rtt_timing --release --features nightly
+// Compiling app v0.1.0 (/home/pln/courses/e7020e/app)
+// Finished release [optimized + debuginfo] target(s) in 0.32s
+// text    data     bss     dec     hex filename
+// 660       0       0     660     294 rtt_timing
+// Try beat that...
 // ------------------------------------------------------------------------
 // Summary:
 // What are the learning outcomes.
 //
-// - Rust generates really bad code in debug build.
-// - Rust generates really, really, really good code in release build.
-//   Zero-cost abstractions are for real.
+// - You have confirmed that RTIC is extremely light weight
+//   (zero-cost in release build).
+//   Applications can be be less than 1k flash.
 //
-// - RTIC is extremely light weight (zero-cost in release build).
-// - RTIC applications are easy to
+// - You have seen that RTIC applications are easy to trace using RTT
+//   If more details are required, you have learned to use gdb.
+//
+// - You have confirmed that Rust generates:
+//   really, really, bad code in debug build.
+//   really, really, really good code in release build.
+//
+// - You have setup timing measurements which are
+//   Cycle accurate (0.000 000 01s at 100MHz).
+//   Consistent (down to a single clock cycle).
+//   Predictable (you got what you expected right?)
