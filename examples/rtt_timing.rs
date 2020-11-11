@@ -125,7 +125,7 @@ fn timed_loop() -> (u32, u32) {
 //
 // Open the file in you editor and search for the `timed_loop`.
 //
-// [Assembly for function here]
+// [Assembly for function `timed_loop` here]
 //
 // Locate the loop body, and verify that it makes sense
 // based on the information from the technical documentation:
@@ -158,7 +158,7 @@ fn timed_loop() -> (u32, u32) {
 //
 // Now add a breakpoint at `timed_loop`.
 // (gdb) break timed_loop
-// Breakpoint 5 at 0x800023e: file examples/rtt_timing.rs, line 45.
+// Breakpoint 5 at 0x800023e: file examples/rtt_timing.rs, line 46.
 //
 // Now we can continue (first break will be at `init`)
 // (gdb) continue
@@ -170,7 +170,7 @@ fn timed_loop() -> (u32, u32) {
 //        unsafe { intrinsics::volatile_load(src) }
 //
 // Now we are inside the `timed_loop`.
-// disassemble
+// (gdb) disassemble
 // Dump of assembler code for function _ZN10rtt_timing10timed_loop17h4a445e5f592f3304E:
 // 0x08000232 <+0>:     movw    r1, #4100       ; 0x1004
 // 0x08000236 <+4>:     movw    r2, #10000      ; 0x2710
@@ -202,7 +202,7 @@ fn timed_loop() -> (u32, u32) {
 //
 // We can now set a breakpoint exactly at the `nop`.
 //
-// (gdb) break *0x8000240
+// (gdb) break *0x8000242
 //
 // And continue execution to the breakpoint:
 // (gdb) continue
@@ -260,7 +260,7 @@ fn timed_loop() -> (u32, u32) {
 // for which write is marked "unsafe".
 //
 // Figure out the way to access the register through:
-// `cx. cx.core.DWT.cyccnt.write(0)`.
+// `cx.core.DWT.cyccnt.write(0)`.
 // And add that to the code just before calling `timed_loop`.
 //
 // (Remember to comment out #![deny(unsafe_code)])
@@ -285,6 +285,7 @@ fn timed_loop() -> (u32, u32) {
 // The ram requirement for the application amounts only to
 // to the buffers (allocated for RTT), and the stack
 // for the functions (which is in this case 0 for the `timed_loop`).
+// (Look at the code, there is no pushing/popping, no local stack.)
 //
 // Let's have a look at the code footprint (flash).
 //
@@ -307,12 +308,12 @@ fn timed_loop() -> (u32, u32) {
 // handler by `panic_halt`, but besides that it should still
 // measure time (debugging in gdb of `timed_loop` must still work).
 //
-// > cargo size
+// > cargo size --example rtt_timing --release --features nightly
 //
 // [Your answer here]
 //
 // I was able to get down to:
-// cargo size --example rtt_timing --release --features nightly
+// > cargo size --example rtt_timing --release --features nightly
 // Compiling app v0.1.0 (/home/pln/courses/e7020e/app)
 // Finished release [optimized + debuginfo] target(s) in 0.32s
 // text    data     bss     dec     hex filename
@@ -324,14 +325,14 @@ fn timed_loop() -> (u32, u32) {
 //
 // - You have confirmed that RTIC is extremely light weight
 //   (zero-cost in release build).
-//   Applications can be be less than 1k flash.
+//   Applications can be be less than 1k flash. Ideal for IoT!
 //
 // - You have seen that RTIC applications are easy to trace using RTT
 //   If more details are required, you have learned to use gdb.
 //
 // - You have confirmed that Rust generates:
-//   really, really, bad code in debug build.
-//   really, really, really good code in release build.
+//   really, really, bad code in debug build (beware!).
+//   really, really, really good code in release build!
 //
 // - You have setup timing measurements which are
 //   Cycle accurate (0.000 000 01s at 100MHz).
