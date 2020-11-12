@@ -48,7 +48,7 @@ const APP: () = {
 //
 // You should find something like:
 //
-//  08000232 <EXTI0>:
+// 08000232 <EXTI0>:
 //  8000232: 00 be        	bkpt	#0
 //  8000234: 00 20        	movs	r0, #0
 //  8000236: 80 f3 11 88  	msr	basepri, r0
