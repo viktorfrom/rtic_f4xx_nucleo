@@ -10,24 +10,22 @@ use cortex_m;
 use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
 use stm32f4;
-
-// #[rtic::app(device = lm3s6965, peripherals = true)]
-#[rtic::app(device = stm32f4)]
-const APP: () = {
+#[rtic::app(device = stm32f4, peripherals = false)]
+mod app {
+    use super::*;
     #[init]
-    fn init(_cx: init::Context) {
-        
+    fn init(_cx: init::Context) -> init::LateResources {
         rtt_init_print!();
         rprintln!("init");
+        init::LateResources {}
     }
 
     #[idle]
     fn idle(_cx: idle::Context) -> ! {
-
         rprintln!("idle");
         panic!("panic");
         loop {
             continue;
         }
     }
-};
+}
