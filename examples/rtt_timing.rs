@@ -69,6 +69,10 @@ fn timed_loop() -> (u32, u32) {
 //
 // [Your answer here]
 //
+// A.3) Why do we need a wrapping subtraction?
+//
+// [Your answer here]
+//
 // ------------------------------------------------------------------------
 // Now try a release (optimized build, see `Cargo.toml` for build options).
 // B.1) What is the cycle count for the loop?
@@ -99,14 +103,14 @@ fn timed_loop() -> (u32, u32) {
 // info: using existing install for 'nightly-x86_64-unknown-linux-gnu'
 // info: override toolchain for '/home/pln/courses/e7020e/app' set to 'nightly-x86_64-unknown-linux-gnu'
 //
-//  nightly-x86_64-unknown-linux-gnu unchanged - rustc 1.49.0-nightly (cf9cf7c92 2020-11-10)
+// nightly-x86_64-unknown-linux-gnu unchanged - rustc 1.49.0-nightly (cf9cf7c92 2020-11-10)
 //
 // > rustup target add thumbv7em-none-eabi
 // (only needed first time)
 //
 // Now try a release (optimized build, see `Cargo.toml` for build options).
 // C.1) What is the cycle count for the loop?
-// > cargo run --example rtt_timing --release
+// > cargo run --example rtt_timing --release --features nightly
 //
 // [Your answer here]
 //
@@ -121,7 +125,7 @@ fn timed_loop() -> (u32, u32) {
 // ------------------------------------------------------------------------
 // D) Now lets have a closer look at the generated assembly.
 //
-// > cargo objdump --example rtt_timing --release  --features nightly -- --disassemble > rtt_timing.objdump
+// > cargo objdump --example rtt_timing --release  --features nightly -- --disassemble --no-show-raw-insn > rtt_timing.objdump
 //
 // Open the file in you editor and search for the `timed_loop`.
 //
