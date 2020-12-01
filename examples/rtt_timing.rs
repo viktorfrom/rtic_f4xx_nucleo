@@ -63,7 +63,7 @@ fn timed_loop() -> (u32, u32) {
 // A.1) What is the cycle count for the loop?
 // > cargo run --example rtt_timing
 //
-// [Your answer here]
+// diff 4840153
 //
 // A.2) How many cycles per iteration?
 //
