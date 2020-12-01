@@ -78,19 +78,19 @@ fn timed_loop() -> (u32, u32) {
 // B.1) What is the cycle count for the loop?
 // > cargo run --example rtt_timing --release
 //
-// [Your answer here]
+// diff 70001
 //
 // B.2) How many cycles per iteration?
 //
-// [Your answer here]
+// 7
 //
 // What is the speedup (A/B)?
 //
-// [Your answer here]
+// 98.5% faster
 //
 // Why do you think it differs that much?
 //
-// [Your answer here]
+// The compiler optimizes the code and removes unnecessary operations.
 //
 // ------------------------------------------------------------------------
 // In the loop there is just a single assembly instruction (nop).
@@ -112,15 +112,15 @@ fn timed_loop() -> (u32, u32) {
 // C.1) What is the cycle count for the loop?
 // > cargo run --example rtt_timing --release --features nightly
 //
-// [Your answer here]
+// diff 40001
 //
 // C.2) How many cycles per iteration?
 //
-// [Your answer here]
+// 4
 //
 // What is the speedup (A/C)?
 //
-// [Your answer here]
+// 99.1% faster
 //
 // ------------------------------------------------------------------------
 // D) Now lets have a closer look at the generated assembly.
