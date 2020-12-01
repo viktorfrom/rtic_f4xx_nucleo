@@ -1,39 +1,43 @@
 //! examples/rtt_timing.rs
 
-#![deny(unsafe_code)]
+// #![deny(unsafe_code)]
 #![deny(warnings)]
 #![no_main]
 #![no_std]
 
+use panic_halt as _;
 use cortex_m::{asm, peripheral::DWT};
-use panic_rtt_target as _;
-use rtt_target::{rprintln, rtt_init_print};
-use stm32f4;
+// use panic_rtt_target as _;
+// use rtt_target::{rprintln, rtt_init_print};
+// use stm32f4;
 
 #[rtic::app(device = stm32f4)]
 const APP: () = {
     #[init]
     fn init(mut cx: init::Context) {
-        rtt_init_print!();
-        rprintln!("init");
+        // rtt_init_print!();
+        // rprintln!("init");
 
         // Initialize (enable) the monotonic timer (CYCCNT)
-        cx.core.DCB.enable_trace();
+        // cx.core.DCB.enable_trace();
         cx.core.DWT.enable_cycle_counter();
 
-        rprintln!("start timed_loop");
-        let (start, end) = timed_loop();
-        rprintln!(
-            "start {}, end {}, diff {}",
-            start,
-            end,
-            end.wrapping_sub(start)
-        );
+        unsafe {
+            cx.core.DWT.cyccnt.write(0);
+        }
+        // rprintln!("start timed_loop");
+        let (_start, _end) = timed_loop();
+        // rprintln!(
+        //     "start {}, end {}, diff {}",
+        //     start,
+        //     end,
+        //     end.wrapping_sub(start)
+        // );
     }
 
     #[idle]
     fn idle(_cx: idle::Context) -> ! {
-        rprintln!("idle");
+        // rprintln!("idle");
         loop {
             continue;
         }
@@ -199,12 +203,35 @@ fn timed_loop() -> (u32, u32) {
 // Confer to the documentation:
 // https://developer.arm.com/documentation/ddi0439/b/Data-Watchpoint-and-Trace-Unit/DWT-Programmers-Model
 //
-// [Your answer here]
+// Cycle count, get_cycle_count() is optimized out by release mode.
 //
 // Now check your answer by dumping the registers
 // (gdb) info registers
 //
-// [Register dump here]
+// r0             0x80000000          -2147483648
+// r1             0xe0001004          -536866812
+// r2             0x2710              10000
+// r3             0xa                 10
+// r4             0x20000000          536870912
+// r5             0x20000430          536871984
+// r6             0x0                 0
+// r7             0x2000ffe8          536936424
+// r8             0x0                 0
+// r9             0x0                 0
+// r10            0x0                 0
+// r11            0x0                 0
+// r12            0x1                 1
+// sp             0x2000ff98          0x2000ff98
+// lr             0x8000373           134218611
+// pc             0x800023e           0x800023e <rtt_timing::timed_loop+12>
+// xPSR           0x81000000          -2130706432
+// fpscr          0x0                 0
+// msp            0x2000ff98          0x2000ff98
+// psp            0x0                 0x0
+// primask        0x1                 1
+// basepri        0x0                 0
+// faultmask      0x0                 0
+// control        0x0                 0
 //
 // We can now set a breakpoint exactly at the `nop`.
 //
@@ -214,7 +241,7 @@ fn timed_loop() -> (u32, u32) {
 // (gdb) continue
 //
 // (gdb) disassemble
-//    0x08000232 <+0>:     movw    r1, #4100       ; 0x1004
+// 0x08000232 <+0>:     movw    r1, #4100       ; 0x1004
 // 0x08000236 <+4>:     movw    r2, #10000      ; 0x2710
 // 0x0800023a <+8>:     movt    r1, #57344      ; 0xe000
 // 0x0800023e <+12>:    ldr     r0, [r1, #0]
@@ -229,18 +256,18 @@ fn timed_loop() -> (u32, u32) {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 0xe0001004:	0x487a8884
 //
 // Now, let's execute one iteration:
 // (gdb) continue
 //
 // What is now the current value of the cycle counter?
 //
-// [Your answer here]
+// 0xe0001004:	0x487a8888
 //
 // By how much does the cycle counter increase for each iteration?
 //
-// [Your answer here]
+// 4
 //
 // ------------------------------------------------------------------------
 // F) Reseting the cycle counter
@@ -276,7 +303,7 @@ fn timed_loop() -> (u32, u32) {
 // What is the initial value of the cycle counter
 // (when hitting the `timed_loop` breakpoint)?
 //
-// [Your answer here]
+// 0xe0001004:	0x0000017c (380)
 //
 // ------------------------------------------------------------------------
 // F) Finally some statics
@@ -316,7 +343,10 @@ fn timed_loop() -> (u32, u32) {
 //
 // > cargo size --example rtt_timing --release --features nightly
 //
-// [Your answer here]
+// cargo size --example rtt_timing --release --features nightly
+//     Finished release [optimized + debuginfo] target(s) in 0.03s
+//    text	   data	    bss	    dec	    hex	filename
+//     648	      0	      0	    648	    288	rtt_timing
 //
 // I was able to get down to:
 // > cargo size --example rtt_timing --release --features nightly
