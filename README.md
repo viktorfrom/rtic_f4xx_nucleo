@@ -41,14 +41,29 @@ You may use any editor of choice. `vscode` supports Rust using the  `rust-analyz
 
 - `examples/rtt_timing.rs`
 
-  Here you will learn about cycle accurate timing measurements.
+  Here you will learn about cycle accurate timing measurements:
 
   - Using instrumentation code (which introduces bloat and overhead).
 
   - Non intrusive measurements using the on-chip debug unit and `gdb`.
 
-  - Code generation optimization
+  - Code generation optimization.
 
   - Code inspection, `objdump`, debugging and interactive `disassemble`.
 
   - Code trimming, RTIC is "A Zero-Cost Abstraction for Memory Safe Concurrency".
+
+- `examples/timing_task.rs`
+
+  Here you learn about the Nested Vector Interrupt Controller:
+
+  - Tasks are bound to interrupt vectors.
+  
+  - Tasks can be pended either by code or by the environment (e.g. on arrival of serial data).
+
+  - The `bkpt` can be inserted in the code to trigger a breakpoint (useful to timing measurements).
+  
+  - RTIC has zero-cost task dispatch overhead (well 2-clock cycles but will be fixed to zero).
+
+
+
