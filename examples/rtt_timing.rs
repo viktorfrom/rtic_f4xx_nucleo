@@ -67,11 +67,11 @@ fn timed_loop() -> (u32, u32) {
 //
 // A.2) How many cycles per iteration?
 //
-// [Your answer here]
+// 484
 //
 // A.3) Why do we need a wrapping subtraction?
 //
-// [Your answer here]
+// To prevent underflow.
 //
 // ------------------------------------------------------------------------
 // Now try a release (optimized build, see `Cargo.toml` for build options).
