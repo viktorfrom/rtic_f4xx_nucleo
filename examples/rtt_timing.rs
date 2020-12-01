@@ -129,7 +129,9 @@ fn timed_loop() -> (u32, u32) {
 //
 // Open the file in you editor and search for the `timed_loop`.
 //
-// [Assembly for function `timed_loop` here]
+//  8000244:      	bne	#-8 <timed_loop+0xe>
+//  8000246:      	ldr	r1, [r1]
+//  8000248:      	bx	lr
 //
 // Locate the loop body, and verify that it makes sense
 // based on the information from the technical documentation:
