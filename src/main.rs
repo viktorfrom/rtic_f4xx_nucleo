@@ -5,8 +5,8 @@
 #![no_main]
 #![no_std]
 
-// use panic_halt as _;
-use panic_rtt_target as _;
+use panic_halt as _;
+//use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
 use stm32f4;
 
@@ -22,9 +22,9 @@ const APP: () = {
     fn idle(_cx: idle::Context) -> ! {
         rprintln!("idle");
         panic!("panic");
-        loop {
-            continue;
-        }
+        //loop {
+        //    continue;
+        //}
     }
 };
 
@@ -81,13 +81,29 @@ const APP: () = {
 //
 // What is the output?
 //
-// [Your answer here]
+// ────────────────────────────────────────────────────────────────────────────────
+// init
+// idle
 //
 // Now press Ctrl-C
 //
 // What is the output?
 //
-// [Your answer here]
+// ^Cstack backtrace:
+//    0: core::sync::atomic::compiler_fence
+//         at /home/from/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/libcore/sync/atomic.rs:2766
+//  1: rust_begin_unwind
+//        at /home/from/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-halt-0.2.0/src/lib.rs:33
+//   2: core::panicking::panic_fmt
+//        at /rustc/04488afe34512aa4c33566eb16d8c912a3ae04f9/src/libcore/panicking.rs:85
+//   3: core::panicking::panic
+//        at /rustc/04488afe34512aa4c33566eb16d8c912a3ae04f9/src/libcore/panicking.rs:50
+//   4: app::idle
+//        at src/main.rs:24
+//   5: main
+//        at src/main.rs:13
+//   6: Reset
+//        at /home/from/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:526
 //
 // E) Find the source
 // Figure out how to find the source of `panic_halt`, and look at the implementation.
