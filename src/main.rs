@@ -5,7 +5,8 @@
 #![no_main]
 #![no_std]
 
-use panic_halt as _;
+use core::panic::PanicInfo;
+use core::sync::atomic::{self, Ordering};
 //use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
 use stm32f4;
@@ -112,4 +113,12 @@ const APP: () = {
 // - `crates.io`
 //
 // Paste the implementation here
-// [Your answer here]
+//
+// #[inline(never)]
+// #[panic_handler]
+// fn panic(_info: &PanicInfo) -> ! {
+//     loop {
+//         atomic::compiler_fence(Ordering::SeqCst);
+//     }
+// }
+
