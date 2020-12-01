@@ -5,6 +5,7 @@
 We assume Rust to be installed using [rustup](https://www.rust-lang.org/tools/install).
 
 Additionally you need to install the `thumbv7em-none-eabi` target.
+
 ```shell
 > rustup target add thumbv7em-none-eabi 
 ```
@@ -55,7 +56,7 @@ You may use any editor of choice. `vscode` supports Rust using the  `rust-analyz
 
 - `examples/timing_task.rs`
 
-  Here you learn about the Nested Vector Interrupt Controller:
+  Here you learn about the Nested Vector Interrupt Controller (NVIC):
 
   - Tasks are bound to interrupt vectors.
   
@@ -65,5 +66,12 @@ You may use any editor of choice. `vscode` supports Rust using the  `rust-analyz
   
   - RTIC has zero-cost task dispatch overhead (well 2-clock cycles but will be fixed to zero).
 
+- `examples/timing_resource.rs`
 
+  Here you will learn about resource handling in RTIC:
 
+  - Implementation of critical sections through priority masking (NVIC-BASEPRI).
+  
+  - Direct access to non-preemptable resources.
+
+  - Comparison to threaded counterpart.
