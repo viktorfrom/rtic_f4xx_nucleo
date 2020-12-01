@@ -21,7 +21,7 @@ const APP: () = {
     #[idle]
     fn idle(_cx: idle::Context) -> ! {
         rprintln!("idle");
-        // panic!("panic");
+        panic!("panic");
         loop {
             continue;
         }
@@ -63,7 +63,12 @@ const APP: () = {
 //
 // What is the output?
 //
-// [Your answer here]
+// 24 |           panic!("panic");                                              
+//    |       ---------------- any code following this expression is unreachable
+// 25 | /         loop {
+// 26 | |             continue; 
+// 27 | |         }                                                
+//    | |_________^ unreachable expression 
 //
 // D) Panic halt
 // Tracing is nice during development, but requires a debugger attached
