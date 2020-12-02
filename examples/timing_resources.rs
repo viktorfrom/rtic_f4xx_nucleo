@@ -248,7 +248,7 @@ const APP: () = {
 //
 // Give a rough estimate based on this info how long the complete task `uart1`,
 // would take to execute if written in FreeRTOS. (Include the context switch, to higher
-// prio task, the mutex lock/unlock in both "threads".)
+// priority task, the mutex lock/unlock in both "threads".)
 //
 // Motivate your answer (not just a number).
 //

@@ -5,7 +5,7 @@
     "tasks": [
         {
             "type": "cargo",
-            "command": "build --example ${fileBasenameNoExtension} --target thumbv7m-none-eabi",
+            "command": "build --example ${fileBasenameNoExtension}",
             "problemMatcher": [
                 "$rustc"
             ],
@@ -14,7 +14,7 @@
         },
         {
             "type": "cargo",
-            "command": "build --example ${fileBasenameNoExtension} --release --target thumbv7m-none-eabi",
+            "command": "build --example ${fileBasenameNoExtension} --release",
             "problemMatcher": [
                 "$rustc"
             ],
@@ -23,7 +23,7 @@
         },
         {
             "type": "cargo",
-            "command": "build --example ${fileBasenameNoExtension} --release --features nightly --target thumbv7m-none-eabi",
+            "command": "build --example ${fileBasenameNoExtension} --release --features nightly",
             "problemMatcher": [
                 "$rustc"
             ],

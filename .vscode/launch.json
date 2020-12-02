@@ -22,7 +22,7 @@
                 "interface/stlink-v2-1.cfg",
                 "target/stm32f4x.cfg"
             ],
-            "executable": "./target/thumbv7m-none-eabi/debug/examples/${fileBasenameNoExtension}",
+            "executable": "./target/thumbv7em-none-eabi/debug/examples/${fileBasenameNoExtension}",
             "cpu": "cortex-m4",
         },
         {
@@ -38,7 +38,7 @@
                 "interface/stlink-v2-1.cfg",
                 "target/stm32f4x.cfg"
             ],
-            "executable": "./target/thumbv7m-none-eabi/release/examples/${fileBasenameNoExtension}",
+            "executable": "./target/thumbv7em-none-eabi/release/examples/${fileBasenameNoExtension}",
             "cpu": "cortex-m4",
         },
         {
@@ -54,7 +54,7 @@
                 "interface/stlink-v2-1.cfg",
                 "target/stm32f4x.cfg"
             ],
-            "executable": "./target/thumbv7m-none-eabi/release/examples/${fileBasenameNoExtension}",
+            "executable": "./target/thumbv7em-none-eabi/release/examples/${fileBasenameNoExtension}",
             "cpu": "cortex-m4",
         },
     ]
