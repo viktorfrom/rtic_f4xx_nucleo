@@ -75,7 +75,7 @@ const APP: () = {
 // timing_task::APP::EXTI0 () at examples/timing_task.rs:11
 // 11      #[rtic::app(device = stm32f411)]
 //
-// Since `exti0` has a default prio = 1, it will preempt `idle` (at prio = 0),
+// Since `exti0` has a default priority = 1, it will preempt `idle` (at priority = 0),
 // and the debugger breaks in the `exti0` task.
 // (Notice, RTIC translates logical priorities to hw priorities for you.)
 //
