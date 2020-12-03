@@ -71,7 +71,16 @@ const APP: () = {
 //
 // Explain what is happening here in your own words.
 //
-// [Your code here]
+// 1. MOV (immediate) writes a 16-bit immediate value to the destination register. 
+// 2. mrs, Move system register.
+// 3. Place a break point at #0
+// 4. Move top, 16x zeroes first, the add the value,#8192, "on top" (16-31) 
+// 5. Load Register Dual (immediate) calculates an address from a base register value and an immediate offset.
+// 6. ADDS (immediate) 1 to r2.
+// 7. ADC, Add with Carry. Add value #0 with r3 to destination register r3.
+// 8. STRD (Store Register Dual) calculates an address from a base register value and a register offset
+// 9. mrs, Move system register back to basepri.
+// 10. BX, Branch and exchange instruction set.
 //
 // > cargo run --example timing_resources --release --features nightly
 // Then continue to the first breakpoint instruction:
@@ -90,11 +99,22 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 10
 //
 // (gdb) disassemble
 //
-// [Your answer here]
+// Dump of assembler code for function timing_resources::APP::EXTI0:
+//    0x08000232 <+0>:	movw	r1, #0
+//    0x08000236 <+4>:	mrs	r0, BASEPRI
+// => 0x0800023a <+8>:	bkpt	0x0000
+//    0x0800023c <+10>:	movt	r1, #8192	; 0x2000
+//    0x08000240 <+14>:	ldrd	r2, r3, [r1]
+//    0x08000244 <+18>:	adds	r2, #1
+//    0x08000246 <+20>:	adc.w	r3, r3, #0
+//    0x0800024a <+24>:	strd	r2, r3, [r1]
+//    0x0800024e <+28>:	msr	BASEPRI, r0
+//    0x08000252 <+32>:	bx	lr
+// End of assembler dump.
 //
 // You should see that we hit the breakpoint in `exti0`, and
 // that the code complies to the objdump EXTI disassembly.

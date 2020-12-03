@@ -1,0 +1,148 @@
+
+timing_resources:	file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+08000198 <Reset>:
+ 8000198: 80 b5        	push	{r7, lr}
+ 800019a: 6f 46        	mov	r7, sp
+ 800019c: 00 f0 aa f8  	bl	#340
+ 80001a0: 40 f2 08 00  	movw	r0, #8
+ 80001a4: 40 f2 00 01  	movw	r1, #0
+ 80001a8: c2 f2 00 00  	movt	r0, #8192
+ 80001ac: c2 f2 00 01  	movt	r1, #8192
+ 80001b0: 81 42        	cmp	r1, r0
+ 80001b2: 14 d2        	bhs	#40 <Reset+0x46>
+ 80001b4: 40 f2 00 01  	movw	r1, #0
+ 80001b8: 00 22        	movs	r2, #0
+ 80001ba: c2 f2 00 01  	movt	r1, #8192
+ 80001be: 41 f8 04 2b  	str	r2, [r1], #4
+ 80001c2: 81 42        	cmp	r1, r0
+ 80001c4: 3c bf        	itt	lo
+ 80001c6: 41 f8 04 2b  	strlo	r2, [r1], #4
+ 80001ca: 81 42        	cmplo	r1, r0
+ 80001cc: 07 d2        	bhs	#14 <Reset+0x46>
+ 80001ce: 41 f8 04 2b  	str	r2, [r1], #4
+ 80001d2: 81 42        	cmp	r1, r0
+ 80001d4: 03 d2        	bhs	#6 <Reset+0x46>
+ 80001d6: 41 f8 04 2b  	str	r2, [r1], #4
+ 80001da: 81 42        	cmp	r1, r0
+ 80001dc: ef d3        	blo	#-34 <Reset+0x26>
+ 80001de: 40 f2 00 00  	movw	r0, #0
+ 80001e2: 40 f2 00 01  	movw	r1, #0
+ 80001e6: c2 f2 00 00  	movt	r0, #8192
+ 80001ea: c2 f2 00 01  	movt	r1, #8192
+ 80001ee: 81 42        	cmp	r1, r0
+ 80001f0: 1c d2        	bhs	#56 <Reset+0x94>
+ 80001f2: 40 f2 0c 31  	movw	r1, #780
+ 80001f6: 40 f2 00 02  	movw	r2, #0
+ 80001fa: c0 f6 00 01  	movt	r1, #2048
+ 80001fe: c2 f2 00 02  	movt	r2, #8192
+ 8000202: 0b 68        	ldr	r3, [r1]
+ 8000204: 42 f8 04 3b  	str	r3, [r2], #4
+ 8000208: 82 42        	cmp	r2, r0
+ 800020a: 0f d2        	bhs	#30 <Reset+0x94>
+ 800020c: 4b 68        	ldr	r3, [r1, #4]
+ 800020e: 42 f8 04 3b  	str	r3, [r2], #4
+ 8000212: 82 42        	cmp	r2, r0
+ 8000214: 0a d2        	bhs	#20 <Reset+0x94>
+ 8000216: 8b 68        	ldr	r3, [r1, #8]
+ 8000218: 42 f8 04 3b  	str	r3, [r2], #4
+ 800021c: 82 42        	cmp	r2, r0
+ 800021e: 05 d2        	bhs	#10 <Reset+0x94>
+ 8000220: cb 68        	ldr	r3, [r1, #12]
+ 8000222: 10 31        	adds	r1, #16
+ 8000224: 42 f8 04 3b  	str	r3, [r2], #4
+ 8000228: 82 42        	cmp	r2, r0
+ 800022a: ea d3        	blo	#-44 <Reset+0x6a>
+ 800022c: 00 f0 35 f8  	bl	#106
+ 8000230: fe de        	trap
+
+08000232 <EXTI0>:
+ 8000232: 40 f2 00 01  	movw	r1, #0
+ 8000236: ef f3 11 80  	mrs	r0, basepri
+ 800023a: 00 be        	bkpt	#0
+ 800023c: c2 f2 00 01  	movt	r1, #8192
+ 8000240: d1 e9 00 23  	ldrd	r2, r3, [r1]
+ 8000244: 01 32        	adds	r2, #1
+ 8000246: 43 f1 00 03  	adc	r3, r3, #0
+ 800024a: c1 e9 00 23  	strd	r2, r3, [r1]
+ 800024e: 80 f3 11 88  	msr	basepri, r0
+ 8000252: 70 47        	bx	lr
+
+08000254 <EXTI1>:
+ 8000254: 41 f2 04 00  	movw	r0, #4100
+ 8000258: 00 21        	movs	r1, #0
+ 800025a: ce f2 00 00  	movt	r0, #57344
+ 800025e: 40 22        	movs	r2, #64
+ 8000260: 01 60        	str	r1, [r0]
+ 8000262: 4e f2 00 20  	movw	r0, #57856
+ 8000266: ce f2 00 00  	movt	r0, #57344
+ 800026a: 00 be        	bkpt	#0
+ 800026c: 02 60        	str	r2, [r0]
+ 800026e: e0 20        	movs	r0, #224
+ 8000270: 00 be        	bkpt	#0
+ 8000272: 80 f3 11 88  	msr	basepri, r0
+ 8000276: 40 f2 00 00  	movw	r0, #0
+ 800027a: c2 f2 00 00  	movt	r0, #8192
+ 800027e: d0 e9 00 23  	ldrd	r2, r3, [r0]
+ 8000282: 01 32        	adds	r2, #1
+ 8000284: 43 f1 00 03  	adc	r3, r3, #0
+ 8000288: c0 e9 00 23  	strd	r2, r3, [r0]
+ 800028c: f0 20        	movs	r0, #240
+ 800028e: 80 f3 11 88  	msr	basepri, r0
+ 8000292: 00 be        	bkpt	#0
+ 8000294: 81 f3 11 88  	msr	basepri, r1
+ 8000298: 70 47        	bx	lr
+
+0800029a <main>:
+ 800029a: 4e f2 06 40  	movw	r0, #58374
+ 800029e: e0 21        	movs	r1, #224
+ 80002a0: ce f2 00 00  	movt	r0, #57344
+ 80002a4: 72 b6        	cpsid i
+ 80002a6: 40 22        	movs	r2, #64
+ 80002a8: 01 70        	strb	r1, [r0]
+ 80002aa: 4e f2 00 11  	movw	r1, #57600
+ 80002ae: ce f2 00 01  	movt	r1, #57344
+ 80002b2: 0a 60        	str	r2, [r1]
+ 80002b4: f0 22        	movs	r2, #240
+ 80002b6: 42 70        	strb	r2, [r0, #1]
+ 80002b8: 4e f6 10 52  	movw	r2, #60688
+ 80002bc: 80 20        	movs	r0, #128
+ 80002be: ce f2 00 02  	movt	r2, #57344
+ 80002c2: 08 60        	str	r0, [r1]
+ 80002c4: 13 68        	ldr	r3, [r2]
+ 80002c6: 43 f0 02 03  	orr	r3, r3, #2
+ 80002ca: 13 60        	str	r3, [r2]
+ 80002cc: d2 f8 ec 30  	ldr.w	r3, [r2, #236]
+ 80002d0: 43 f0 80 73  	orr	r3, r3, #16777216
+ 80002d4: c2 f8 ec 30  	str.w	r3, [r2, #236]
+ 80002d8: 41 f2 00 02  	movw	r2, #4096
+ 80002dc: ce f2 00 02  	movt	r2, #57344
+ 80002e0: 13 68        	ldr	r3, [r2]
+ 80002e2: 43 f0 01 03  	orr	r3, r3, #1
+ 80002e6: 13 60        	str	r3, [r2]
+ 80002e8: c1 f8 00 01  	str.w	r0, [r1, #256]
+ 80002ec: 62 b6        	cpsie i
+ 80002ee: 30 bf        	wfi
+ 80002f0: fd e7        	b	#-6 <main+0x54>
+
+080002f2 <WWDG>:
+ 80002f2: fe e7        	b	#-4 <WWDG>
+
+080002f4 <__pre_init>:
+ 80002f4: 70 47        	bx	lr
+
+080002f6 <HardFaultTrampoline>:
+ 80002f6: 70 46        	mov	r0, lr
+ 80002f8: 04 21        	movs	r1, #4
+ 80002fa: 08 42        	tst	r0, r1
+ 80002fc: 02 d1        	bne	#4 <HardFaultTrampoline+0xe>
+ 80002fe: ef f3 08 80  	mrs	r0, msp
+ 8000302: 02 e0        	b	#4 <HardFault_>
+ 8000304: ef f3 09 80  	mrs	r0, psp
+ 8000308: ff e7        	b	#-2 <HardFault_>
+
+0800030a <HardFault_>:
+ 800030a: fe e7        	b	#-4 <HardFault_>
