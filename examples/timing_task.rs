@@ -81,12 +81,17 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 11
 //
 // (gdb) disassemble
 //
-// [Your answer here]
-//
+// Dump of assembler code for function timing_task::APP::EXTI0:
+// => 0x08000232 <+0>:	bkpt	0x0000
+//    0x08000234 <+2>:	movs	r0, #0
+//    0x08000236 <+4>:	msr	BASEPRI, r0
+//    0x0800023a <+8>:	bx	lr
+// End of assembler dump.
+// 
 // You should see that we hit the breakpoint in `exti0`, and
 // that the code complies to the objdump EXTI disassembly.
 //
@@ -95,11 +100,11 @@ const APP: () = {
 //
 // What was the software latency observed to enter the task?
 //
-// [Your answer here]
+// 11-0 = 11 cycles
 //
 // Does RTIC infer any overhead for launching the task?
 //
-// [Your answer here]
+// No, if the typical latency is ~12 for cortex-m4, and we get 11 cycles, there is no overhead.
 //
 // Now we can continue to measure the round trip time.
 //
