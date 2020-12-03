@@ -121,7 +121,7 @@ const APP: () = {
 //
 // What was the software latency observed to enter the task?
 //
-// [Your answer here]
+// 16-2 = 14 cycles
 //
 // Does RTIC infer any overhead?
 //
