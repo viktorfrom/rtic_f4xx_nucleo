@@ -40,9 +40,9 @@ const APP: () = {
         rtic::pend(stm32f411::Interrupt::EXTI0);
         asm::bkpt();
         cx.resources.shared.lock(|shared| {
-            // asm::bkpt();
+            asm::bkpt();
             *shared += 1;
-            // asm::bkpt();
+            asm::bkpt();
         });
         asm::bkpt();
     }
@@ -179,11 +179,11 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 52
 //
 // Calculate the total time (in cycles), for this section of code.
 //
-// [Your answer here]
+// 52-37 = 15 cycles
 //
 // You should get a value around 15 cycles.
 //
@@ -223,7 +223,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+//  40
 //
 // (gdb) c
 //
@@ -233,14 +233,14 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 50
 //
 // From a real-time perspective the critical section infers
 // blocking (of higher priority tasks).
 //
 // How many clock cycles is the blocking?
 //
-// [Your answer here]
+// 50-40 = 10 cycles
 //
 // Finally continue out of the closure.
 //
@@ -250,7 +250,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 52
 //
 // This is the total execution time of:
 //
@@ -273,7 +273,13 @@ const APP: () = {
 //
 // Motivate your answer (not just a number).
 //
-// [Your answer here]
+// Job Latency/Job OH: 650/1522 (best case)
+// Lock OH/Unlock OH: 260/170 (best case)
+// Critical Section ID: 40 (constant) 
+// Memory Job: 468 (per task)
+// Static Mem: 76 (per queue)
+// Footprint Program: 8184
+// Native Analysis: None
 //
 // Notice, the Rust implementation is significantly faster than the C code version
 // of Real-Time For the Masses back in 2013.
@@ -283,4 +289,5 @@ const APP: () = {
 //
 // (Hint, what possible optimization can safely be applied by RTIC + Rust + LLVM.)
 //
-// [Your answer here]
+// No, need to handle pointers and memory allocation. Due to Rust lang and prio-based scheduling. 
+// Further, Rust does a really good job at optimizing the binary using release mode. 
