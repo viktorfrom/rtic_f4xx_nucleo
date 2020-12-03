@@ -71,7 +71,7 @@ const APP: () = {
 //
 // Explain what is happening here in your own words.
 //
-// 1. MOV (immediate) writes a 16-bit immediate value to the destination register. 
+// 1. movw (word) writes a 16-bit immediate value to the destination register. 
 // 2. mrs, Move system register.
 // 3. Place a break point at #0
 // 4. Move top, 16x zeroes first, the add the value,#8192, "on top" (16-31) 
@@ -125,7 +125,7 @@ const APP: () = {
 //
 // Does RTIC infer any overhead?
 //
-// [Your answer here]
+// Yes, if the typical latency is ~12 for cortex-m4, and we get 14 cycles, there are 2 cyles of overhead.
 //
 // The debugger reports that the breakpoint was hit in the `run<closure>`.
 // The reason is that the RTIC implements the actual interrupt handler,
@@ -143,14 +143,14 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 37 
 //
 // You should have a total execution time in the range of 30-40 cycles.
 //
 // Explain the reason (for this case) that resource access in
 // `exti0` was safe without locking the resource.
 //
-// [Your answer here]
+// Priority-based scheduling
 //
 // In `exti1` we also access `shared` but this time through a lock.
 //
