@@ -114,7 +114,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
-// [Your answer here]
+// 23
 //
 // Looking at the EXTI0 (exti0) code, we see two additional
 // instructions used to restore the BASEPRI register.
