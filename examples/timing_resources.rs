@@ -173,8 +173,9 @@ const APP: () = {
 // execution time of the lock.
 //
 // (gdb) c
-// timing_resources::idle (cx=...) at examples/timing_resources.rs:36
-// 36              asm::bkpt();
+//  received signal SIGTRAP, Trace/breakpoint trap.
+// timing_resources::exti1 (cx=...) at examples/timing_resources.rs:47
+// 47	        asm::bkpt();
 //
 // (gdb) x 0xe0001004
 //
@@ -251,7 +252,7 @@ const APP: () = {
 //
 // [Your answer here]
 //
-// This is the total execution time of.
+// This is the total execution time of:
 //
 // - pending a task `exti0` for execution
 // - preempt `exti1`
@@ -266,7 +267,7 @@ const APP: () = {
 //
 // You find a comparison to a typical threaded counterpart `freeRTOS` in Table 1.
 //
-// Give a rough estimate based on this info how long the complete task `uart1`,
+// Give a rough estimate based on this info how long the complete task `exti1`,
 // would take to execute if written in FreeRTOS. (Include the context switch, to higher
 // priority task, the mutex lock/unlock in both "threads".)
 //
@@ -280,6 +281,6 @@ const APP: () = {
 // Why do you think RTIC + Rust + LLVM can do a better job than hand written
 // C code + Macros + gcc?
 //
-// (Hint, what possible optimization can safely be applied.)
+// (Hint, what possible optimization can safely be applied by RTIC + Rust + LLVM.)
 //
 // [Your answer here]
