@@ -95,7 +95,7 @@ fn timed_loop() -> (u32, u32) {
 // What is the speedup (A/B)?
 //
 // [Your answer here] 
-// 98.5% faster
+// 80x times faster/98.5% faster
 //
 // Why do you think it differs that much?
 //
@@ -132,7 +132,7 @@ fn timed_loop() -> (u32, u32) {
 // What is the speedup (A/C)?
 //
 // [Your answer here] 
-// 99.1% faster
+// 121x times faster/99.1% faster
 //
 // ------------------------------------------------------------------------
 // D) Now lets have a closer look at the generated assembly.
@@ -211,7 +211,9 @@ fn timed_loop() -> (u32, u32) {
 // Confer to the documentation:
 // https://developer.arm.com/documentation/ddi0439/b/Data-Watchpoint-and-Trace-Unit/DWT-Programmers-Model
 //
-// Cycle count, get_cycle_count() is optimized out by release mode.
+// [Your answer here] 
+// Cycle count, get_cycle_count() is optimized out by release mode. 
+// $r1 contains the initial cycle count, int 4100.
 //
 // Now check your answer by dumping the registers
 // (gdb) info registers
