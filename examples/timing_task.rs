@@ -64,6 +64,8 @@ const APP: () = {
 // 28              asm::bkpt();
 //
 // (gdb) x 0xe0001004
+//
+// [Your answer here] 
 // 0
 //
 // Here we see, that we have successfully set the cycle counter to zero.
@@ -81,6 +83,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 11
 //
 // (gdb) disassemble
@@ -100,6 +103,7 @@ const APP: () = {
 //
 // What was the software latency observed to enter the task?
 //
+// [Your answer here] 
 // 11-0 = 11 cycles
 //
 // Does RTIC infer any overhead for launching the task?
@@ -114,6 +118,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 23
 //
 // Looking at the EXTI0 (exti0) code, we see two additional

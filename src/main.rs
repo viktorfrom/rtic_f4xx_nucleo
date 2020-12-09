@@ -64,6 +64,7 @@ const APP: () = {
 //
 // What is the output?
 //
+// [Your answer here] 
 // 24 |           panic!("panic");                                              
 //    |       ---------------- any code following this expression is unreachable
 // 25 | /         loop {
@@ -82,6 +83,7 @@ const APP: () = {
 //
 // What is the output?
 //
+// [Your answer here] 
 // ────────────────────────────────────────────────────────────────────────────────
 // init
 // idle
@@ -90,6 +92,7 @@ const APP: () = {
 //
 // What is the output?
 //
+// [Your answer here] 
 // ^Cstack backtrace:
 //    0: core::sync::atomic::compiler_fence
 //         at /home/from/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/libcore/sync/atomic.rs:2766
@@ -114,6 +117,7 @@ const APP: () = {
 //
 // Paste the implementation here
 //
+// [Your answer here] 
 // #[inline(never)]
 // #[panic_handler]
 // fn panic(_info: &PanicInfo) -> ! {

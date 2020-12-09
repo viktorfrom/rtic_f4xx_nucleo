@@ -67,10 +67,12 @@ fn timed_loop() -> (u32, u32) {
 // A.1) What is the cycle count for the loop?
 // > cargo run --example rtt_timing
 //
+// [Your answer here] 
 // diff 4840153
 //
 // A.2) How many cycles per iteration?
 //
+// [Your answer here] 
 // 484
 //
 // A.3) Why do we need a wrapping subtraction?
@@ -82,14 +84,17 @@ fn timed_loop() -> (u32, u32) {
 // B.1) What is the cycle count for the loop?
 // > cargo run --example rtt_timing --release
 //
+// [Your answer here] 
 // diff 70001
 //
 // B.2) How many cycles per iteration?
 //
+// [Your answer here] 
 // 7
 //
 // What is the speedup (A/B)?
 //
+// [Your answer here] 
 // 98.5% faster
 //
 // Why do you think it differs that much?
@@ -116,14 +121,17 @@ fn timed_loop() -> (u32, u32) {
 // C.1) What is the cycle count for the loop?
 // > cargo run --example rtt_timing --release --features nightly
 //
+// [Your answer here] 
 // diff 40001
 //
 // C.2) How many cycles per iteration?
 //
+// [Your answer here] 
 // 4
 //
 // What is the speedup (A/C)?
 //
+// [Your answer here] 
 // 99.1% faster
 //
 // ------------------------------------------------------------------------
@@ -256,6 +264,7 @@ fn timed_loop() -> (u32, u32) {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 0xe0001004:	0x487a8884
 //
 // Now, let's execute one iteration:
@@ -263,10 +272,12 @@ fn timed_loop() -> (u32, u32) {
 //
 // What is now the current value of the cycle counter?
 //
+// [Your answer here] 
 // 0xe0001004:	0x487a8888
 //
 // By how much does the cycle counter increase for each iteration?
 //
+// [Your answer here] 
 // 4
 //
 // ------------------------------------------------------------------------
@@ -303,6 +314,7 @@ fn timed_loop() -> (u32, u32) {
 // What is the initial value of the cycle counter
 // (when hitting the `timed_loop` breakpoint)?
 //
+// [Your answer here] 
 // 0xe0001004:	0x0000017c (380)
 //
 // ------------------------------------------------------------------------
@@ -343,6 +355,7 @@ fn timed_loop() -> (u32, u32) {
 //
 // > cargo size --example rtt_timing --release --features nightly
 //
+// [Your answer here] 
 // cargo size --example rtt_timing --release --features nightly
 //     Finished release [optimized + debuginfo] target(s) in 0.03s
 //    text	   data	    bss	    dec	    hex	filename

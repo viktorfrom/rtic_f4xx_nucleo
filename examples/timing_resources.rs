@@ -71,6 +71,7 @@ const APP: () = {
 //
 // Explain what is happening here in your own words.
 //
+// [Your answer here] 
 // 1. movw (word) writes a 16-bit immediate value to the destination register. 
 // 2. mrs, Move system register.
 // 3. Place a break point at #0
@@ -91,6 +92,8 @@ const APP: () = {
 // 39	        asm::bkpt();
 //
 // (gdb) x 0xe0001004
+//
+// [Your answer here] 
 // 2
 //
 // (gdb) c
@@ -99,10 +102,12 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 10
 //
 // (gdb) disassemble
 //
+// [Your answer here] 
 // Dump of assembler code for function timing_resources::APP::EXTI0:
 //    0x08000232 <+0>:	movw	r1, #0
 //    0x08000236 <+4>:	mrs	r0, BASEPRI
@@ -121,10 +126,12 @@ const APP: () = {
 //
 // What was the software latency observed to enter the task?
 //
+// [Your answer here] 
 // 16-2 = 14 cycles
 //
 // Does RTIC infer any overhead?
 //
+// [Your answer here] 
 // Yes, if the typical latency is ~12 for cortex-m4, and we get 14 cycles, there are 2 cyles of overhead.
 //
 // The debugger reports that the breakpoint was hit in the `run<closure>`.
@@ -143,6 +150,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 37 
 //
 // You should have a total execution time in the range of 30-40 cycles.
@@ -179,10 +187,12 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 52
 //
 // Calculate the total time (in cycles), for this section of code.
 //
+// [Your answer here] 
 // 52-37 = 15 cycles
 //
 // You should get a value around 15 cycles.
@@ -223,6 +233,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 //  40
 //
 // (gdb) c
@@ -233,6 +244,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 50
 //
 // From a real-time perspective the critical section infers
@@ -240,6 +252,7 @@ const APP: () = {
 //
 // How many clock cycles is the blocking?
 //
+// [Your answer here] 
 // 50-40 = 10 cycles
 //
 // Finally continue out of the closure.
@@ -250,6 +263,7 @@ const APP: () = {
 //
 // (gdb) x 0xe0001004
 //
+// [Your answer here] 
 // 52
 //
 // This is the total execution time of:
@@ -273,6 +287,7 @@ const APP: () = {
 //
 // Motivate your answer (not just a number).
 //
+// [Your answer here] 
 // Job Latency/Job OH: 650/1522 (best case)
 // Lock OH/Unlock OH: 260/170 (best case)
 // Critical Section ID: 40 (constant) 
@@ -289,5 +304,6 @@ const APP: () = {
 //
 // (Hint, what possible optimization can safely be applied by RTIC + Rust + LLVM.)
 //
-// No, need to handle pointers and memory allocation. Due to Rust lang and prio-based scheduling. 
+// [Your answer here] 
+// No need to handle pointers and memory allocation. Due to Rust lang and prio-based scheduling. 
 // Further, Rust does a really good job at optimizing the binary using release mode. 
