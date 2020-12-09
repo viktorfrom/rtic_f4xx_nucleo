@@ -158,6 +158,10 @@ const APP: () = {
 // Explain the reason (for this case) that resource access in
 // `exti0` was safe without locking the resource.
 //
+// [Your answer here] 
+// Because exti0 has the highest prio and therefore does not 
+// require a lock, lower prio tasks will not interfere.
+//
 // Priority-based scheduling
 //
 // In `exti1` we also access `shared` but this time through a lock.
