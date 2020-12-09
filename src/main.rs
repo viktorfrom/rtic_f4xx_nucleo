@@ -65,12 +65,10 @@ const APP: () = {
 // What is the output?
 //
 // [Your answer here] 
-// 24 |           panic!("panic");                                              
-//    |       ---------------- any code following this expression is unreachable
-// 25 | /         loop {
-// 26 | |             continue; 
-// 27 | |         }                                                
-//    | |_________^ unreachable expression 
+// With loop:
+// error: unreachable expression (unreachable loop)
+// Without loop:
+// panicked at 'panic', src/main.rs:24:9
 //
 // D) Panic halt
 // Tracing is nice during development, but requires a debugger attached
@@ -87,6 +85,7 @@ const APP: () = {
 // ────────────────────────────────────────────────────────────────────────────────
 // init
 // idle
+// panicked at 'panic', src/main.rs:24:9
 //
 // Now press Ctrl-C
 //
