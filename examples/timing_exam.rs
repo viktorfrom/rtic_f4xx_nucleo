@@ -40,6 +40,7 @@ const APP: () = {
     #[inline(never)]
     #[task(schedule = [t1], priority = 1)]
     fn t1(cx: t1::Context) {
+        let start = DWT::get_cycle_count();
         asm::bkpt();
         cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();
         asm::bkpt();
@@ -50,12 +51,24 @@ const APP: () = {
 
         // 2) your code here to update T1_MAX_RP and
         // break if deadline missed
+        let end = DWT::get_cycle_count();
+        let deadline = 100 * 1_000;
+        let prev_rt = unsafe { T1_MAX_RP };
+        let rt = end - start;
+
+        if rt > prev_rt {
+            unsafe { T1_MAX_RP = rt };
+        } else if rt > deadline {
+            // asm::bkpt();
+            panic!("task non-schedulable: deadline miss!");
+        }
     }
 
     // Deadline 200, Inter-arrival 200
     #[inline(never)]
     #[task(schedule = [t2], resources = [R1, R2], priority = 2)]
     fn t2(mut cx: t2::Context) {
+        let start = DWT::get_cycle_count();
         asm::bkpt();
         cx.schedule.t2(cx.scheduled + 200_000.cycles()).unwrap();
         asm::bkpt();
@@ -63,7 +76,7 @@ const APP: () = {
         // 1) your code here to emulate timing behavior of t2
         // emulates timing behavior of t2
         cortex_m::asm::delay(10_000);
-        cx.resources.R2.lock(|R2| {
+        cx.resources.R2.lock(|_| {
             cortex_m::asm::delay(4_000);
         });
         cortex_m::asm::delay(6_000);
@@ -72,12 +85,24 @@ const APP: () = {
 
         // 2) your code here to update T2_MAX_RP and
         // break if deadline missed
+        let end = DWT::get_cycle_count();
+        let deadline = 200 * 1_000;
+        let prev_rt = unsafe { T2_MAX_RP };
+        let rt = end - start;
+
+        if rt > prev_rt {
+            unsafe { T2_MAX_RP = rt };
+        } else if rt > deadline {
+            // asm::bkpt();
+            panic!("task non-schedulable: deadline miss!");
+        }
     }
 
     // Deadline 50, Inter-arrival 50
     #[inline(never)]
     #[task(schedule = [t3], resources = [R2], priority = 3)]
     fn t3(cx: t3::Context) {
+        let start = DWT::get_cycle_count();
         asm::bkpt();
         cx.schedule.t3(cx.scheduled + 50_000.cycles()).unwrap();
         asm::bkpt();
@@ -90,6 +115,17 @@ const APP: () = {
 
         // 2) your code here to update T3_MAX_RP and
         // break if deadline missed
+        let end = DWT::get_cycle_count();
+        let deadline = 50 * 1_000;
+        let prev_rt = unsafe { T3_MAX_RP };
+        let rt = end - start;
+
+        if rt > prev_rt {
+            unsafe { T3_MAX_RP = rt };
+        } else if rt > deadline {
+            // asm::bkpt();
+            panic!("task non-schedulable: deadline miss!");
+        }
     }
 
     // RTIC requires that unused interrupts are declared in an extern block when
@@ -126,32 +162,40 @@ const APP: () = {
 // Now its time to see if your scheduling analysis is accurate
 // in comparison to a real running system.
 //
-// First explain in your own words how the `Instance` is
+// First explain in your own words how the `Instant` is
 // used to generate a periodic task instance arrivals.
 //
 // `cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();`
 //
 // [Your answer here]
+// Once a task is executed the task is rescheduled at a later time, 
+// of cx.schedule + cycle count.
 //
 // Explain in your own words the difference between:
 //
-// `cx.schedule.t1(Instance::now() + 100_000.cycles()).unwrap();`
+// `cx.schedule.t1(Instant::now() + 100_000.cycles()).unwrap();`
 // and
 // `cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();`
 //
 // [Your answer here]
+// Instant::now() + cycles schedules the task immediately + the given cycle count. 
+// Once a task is executed the task is rescheduled at a later time, 
+// of cx.schedule + cycle count.
 //
 // Explain in your own words why we use the latter
 // in order to generate a periodic task.
 //
 // [Your answer here]
+// The tasks can be interrupted by a higher priority task and therefore 
+// the periodic scheduling can be delayed. Instant::now() does not take 
+// this into account. 
 //
 // Hint, look at https://rtic.rs/0.5/book/en/by-example/timer-queue.html
 //
-// Once you understand how `Instance` is used, document your crate:
+// Once you understand how `Instant` is used, document your crate:
 // > cargo doc --open
 //
-// Once you have the documentation open, search for `Instance`
+// Once you have the documentation open, search for `Instant`
 // Hint, you can search docs by pressing S.
 //
 // Now figure out how to calculate the actual response time.
@@ -165,6 +209,8 @@ const APP: () = {
 // Explain why this is needed (there is a good reason for it).
 //
 // [Your answer here]
+// Static mut variables are used to share state between interrupt handlers,
+// therefore memory safety on the stack cannot be ensured and unsafe{} needs to be used.
 //
 // Implement this functionality for all tasks.
 //
