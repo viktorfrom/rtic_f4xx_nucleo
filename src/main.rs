@@ -5,9 +5,10 @@
 #![no_main]
 #![no_std]
 
-use core::panic::PanicInfo;
-use core::sync::atomic::{self, Ordering};
-//use panic_rtt_target as _;
+// use core::panic::PanicInfo;
+// use core::sync::atomic::{self, Ordering};
+use panic_halt as _;
+// use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
 use stm32f4;
 
