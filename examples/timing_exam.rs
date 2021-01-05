@@ -55,13 +55,20 @@ const APP: () = {
     // Deadline 200, Inter-arrival 200
     #[inline(never)]
     #[task(schedule = [t2], resources = [R1, R2], priority = 2)]
-    fn t2(cx: t2::Context) {
+    fn t2(mut cx: t2::Context) {
         asm::bkpt();
         cx.schedule.t2(cx.scheduled + 200_000.cycles()).unwrap();
         asm::bkpt();
 
         // 1) your code here to emulate timing behavior of t2
+        // emulates timing behavior of t2
+        cortex_m::asm::delay(10_000);
+        cx.resources.R2.lock(|R2| {
+            cortex_m::asm::delay(4_000);
+        });
+        cortex_m::asm::delay(6_000);
         asm::bkpt();
+
 
         // 2) your code here to update T2_MAX_RP and
         // break if deadline missed
@@ -76,7 +83,10 @@ const APP: () = {
         asm::bkpt();
 
         // 1) your code here to emulate timing behavior of t3
+        // emulates timing behavior of t3
+        cortex_m::asm::delay(10_000);
         asm::bkpt();
+
 
         // 2) your code here to update T3_MAX_RP and
         // break if deadline missed
