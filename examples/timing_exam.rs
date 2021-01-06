@@ -75,11 +75,18 @@ const APP: () = {
 
         // 1) your code here to emulate timing behavior of t2
         // emulates timing behavior of t2
+
         cortex_m::asm::delay(10_000);
+
+        cortex_m::asm::delay(2_000); // R1
         cx.resources.R2.lock(|_| {
-            cortex_m::asm::delay(4_000);
+            cortex_m::asm::delay(4_000); // R2
         });
-        cortex_m::asm::delay(6_000);
+        cortex_m::asm::delay(4_000);  //R1
+
+        cortex_m::asm::delay(2_000); 
+        cortex_m::asm::delay(6_000); // R1
+        cortex_m::asm::delay(2_000); 
         asm::bkpt();
 
 
@@ -109,6 +116,8 @@ const APP: () = {
 
         // 1) your code here to emulate timing behavior of t3
         // emulates timing behavior of t3
+        cortex_m::asm::delay(10_000);
+        cortex_m::asm::delay(10_000); // R2
         cortex_m::asm::delay(10_000);
         asm::bkpt();
 
@@ -254,22 +263,26 @@ const APP: () = {
 // 3A) Why is there an offset 50240 (instead of 50000)?
 //
 // [Your answer here]
+// CYCCNT = 50251. The offset is caused by system overhead.
 //
 // 3B) Why is the calculated response time larger than the
 // delays you inserted to simulate workload?
 //
 // [Your answer here]
+// Rescheduling a tasks adds additional response time.
 //
 // 3C) Why is the second arrival of `t3` further delayed?
 //
 // [Your answer here]
 // Hint, think about what happens at time 100_000, what tasks
 // are set to `arrive` at that point compared to time 50_000.
+// CYCCNT = 100297. wut? 
 //
 // 3D) What is the scheduled time for task `t1` (130595 is the
-// measured time according to CYCYCNT).
+// measured time according to CYCCNT).
 //
 // [Your answer here]
+// The scheduled time is 130_000.
 //
 // Why is the measured value much higher than the scheduled time?
 //
@@ -321,7 +334,7 @@ const APP: () = {
 // Adjust delays to compensate for the OH to make it fit to
 // to the theoretical task set.
 //
-// In order to do so test each task individually, schedule ony one
+// In order to do so test each task individually, schedule only one
 // task from `init` at a time.
 //
 // You may need to insert additional breakpoints to tune the timing.
