@@ -276,7 +276,7 @@ const APP: () = {
 // [Your answer here]
 // Hint, think about what happens at time 100_000, what tasks
 // are set to `arrive` at that point compared to time 50_000.
-// CYCCNT = 100297. wut? 
+// CYCCNT = 100297. 
 //
 // 3D) What is the scheduled time for task `t1` (130595 is the
 // measured time according to CYCCNT).
