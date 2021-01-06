@@ -276,23 +276,26 @@ const APP: () = {
 // [Your answer here]
 // Hint, think about what happens at time 100_000, what tasks
 // are set to `arrive` at that point compared to time 50_000.
-// CYCCNT = 100297. 
+// Since T3 has a higher prio the program performs a context switch which 
+// takes 46 cycles to execute. CYCCNT = 50251, CYCCNT = 100297, (46).
 //
 // 3D) What is the scheduled time for task `t1` (130595 is the
 // measured time according to CYCCNT).
 //
 // [Your answer here]
-// The scheduled time is 130_000.
+// The scheduled time is 100_000.
 //
 // Why is the measured value much higher than the scheduled time?
 //
 // [Your answer here]
+// T1 gets interrupted by T3.
 //
 // Now you can continue until you get a first update of `T1_MAX_RP`.
 //
 // What is the first update of `T1_MAX_RP`?
 //
 // [Your answer here]
+// T1_MAX_RP = 10082
 //
 // Explain the obtained value in terms of:
 // Execution time, blocking and preemptions
@@ -305,24 +308,29 @@ const APP: () = {
 // What is the first update of `T2_MAX_RP`?
 //
 // [Your answer here]
+// T2_MAX_RP = 60546
 //
 // Now continue until you get a second timing measurement for `T1_MAX_RP`.
 //
 // What is the second update of `T3_MAX_RP`?
 //
 // [Your answer here]
+// T3_MAX_RP = 50251
+// T3_MAX_RP = 30104
 //
 // Now you should have ended up in a deadline miss right!!!!
 //
 // Why did this happen?
 //
 // [Your answer here]
+// Nope, no deadline(?)
 //
 // Compare that to the result obtained from your analysis tool.
 //
 // Do they differ, if so why?
 //
 // [Your answer here]
+// Got a lower value, 30 instead of 34 in the srp analysis.
 //
 // Commit your repository once you completed this part.
 //
