@@ -302,6 +302,10 @@ const APP: () = {
 // (that occurred for this task instance).
 //
 // [Your answer here]
+// The only value present in the first update is the exectuion time, 
+// there is no blocking 
+// The only thing present in this value is the execution time,
+// there is no blocking or preemption happening for the first update.
 //
 // Now continue until you get a first timing measurement for `T2_MAX_RP`.
 //
@@ -315,22 +319,22 @@ const APP: () = {
 // What is the second update of `T3_MAX_RP`?
 //
 // [Your answer here]
-// T3_MAX_RP = 50251
-// T3_MAX_RP = 30104
+// T3_MAX_RP = 50251 // first
+// T3_MAX_RP = 30104 // second
 //
 // Now you should have ended up in a deadline miss right!!!!
 //
 // Why did this happen?
 //
 // [Your answer here]
-// Nope, no deadline(?)
+// Nope, no deadline miss(?)
 //
 // Compare that to the result obtained from your analysis tool.
 //
 // Do they differ, if so why?
 //
 // [Your answer here]
-// Got a lower value, 30 instead of 34 in the srp analysis.
+// Got a lower value, 30 instead of 34 in the theoretical srp analysis.
 //
 // Commit your repository once you completed this part.
 //
@@ -370,5 +374,19 @@ const APP: () = {
 // - How would an ideal tool for static analysis of RTIC models look like.
 //
 // [Your ideas and reflections here]
+// There is a clear advantage of using RTIC over conventional frameworks which utilizes
+// threading instead of stack resource policy scheduling. Due to minimal scheduling overhead
+// and hardware performing the bulk of scheduling. Aside of deadlock free execution
+// there's also the benefit of on demand asynchronous spawning of tasks during run-time,
+// message passing between tasks, support for prioritization etc.
+//
+// Due to high complexity in embedded systems and the nature of the problem,
+// it's practically impossible to find the exact response times, blocking times, 
+// wcet and preemption. However, these values can be bounded and can be done so 
+// relatively well with theoretical models. 
+//
+// Through injection of crates static analysis could be simplified, by activating a flag 
+// during run-time. Where the injection would place Instant::Now() scheduling in init, 
+// rescheduling and cycle measurement at the start and end of each task present in the application. 
 //
 // Commit your thoughts, we will discuss further when we meet.
