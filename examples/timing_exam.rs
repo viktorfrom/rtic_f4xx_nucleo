@@ -303,9 +303,7 @@ const APP: () = {
 //
 // [Your answer here]
 // The only value present in the first update is the exectuion time, 
-// there is no blocking 
-// The only thing present in this value is the execution time,
-// there is no blocking or preemption happening for the first update.
+// there is no blocking or preemption. 
 //
 // Now continue until you get a first timing measurement for `T2_MAX_RP`.
 //
