@@ -41,13 +41,13 @@ const APP: () = {
     #[task(schedule = [t1], priority = 1)]
     fn t1(cx: t1::Context) {
         let start = cx.scheduled; 
-        asm::bkpt();
+        // asm::bkpt();
         cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();
-        asm::bkpt();
+        // asm::bkpt();
 
         // emulates timing behavior of t1
         cortex_m::asm::delay(10_000);
-        asm::bkpt();
+        // asm::bkpt();
 
         // 2) your code here to update T1_MAX_RP and
         // break if deadline missed
@@ -68,13 +68,12 @@ const APP: () = {
     #[task(schedule = [t2], resources = [R1, R2], priority = 2)]
     fn t2(mut cx: t2::Context) {
         let start = cx.scheduled; 
-        asm::bkpt();
+        // asm::bkpt();
         cx.schedule.t2(cx.scheduled + 200_000.cycles()).unwrap();
-        asm::bkpt();
+        // asm::bkpt();
 
         // 1) your code here to emulate timing behavior of t2
         // emulates timing behavior of t2
-
         cortex_m::asm::delay(10_000);
 
         cortex_m::asm::delay(2_000); // R1
@@ -86,7 +85,7 @@ const APP: () = {
         cortex_m::asm::delay(2_000); 
         cortex_m::asm::delay(6_000); // R1
         cortex_m::asm::delay(2_000); 
-        asm::bkpt();
+        // asm::bkpt();
 
 
         // 2) your code here to update T2_MAX_RP and
@@ -108,16 +107,16 @@ const APP: () = {
     #[task(schedule = [t3], resources = [R2], priority = 3)]
     fn t3(cx: t3::Context) {
         let start = cx.scheduled; 
-        asm::bkpt();
+        // asm::bkpt();
         cx.schedule.t3(cx.scheduled + 50_000.cycles()).unwrap();
-        asm::bkpt();
+        // asm::bkpt();
 
         // 1) your code here to emulate timing behavior of t3
         // emulates timing behavior of t3
-        cortex_m::asm::delay(10_000);
-        cortex_m::asm::delay(10_000); // R2
-        cortex_m::asm::delay(10_000);
-        asm::bkpt();
+        cortex_m::asm::delay(9_500);
+        cortex_m::asm::delay(9_500); // R2
+        cortex_m::asm::delay(9_500);
+        // asm::bkpt();
 
 
         // 2) your code here to update T3_MAX_RP and
@@ -330,8 +329,8 @@ const APP: () = {
 // Do they differ, if so why?
 //
 // [Your answer here]
-// In the theoretical example exact values does not take into overhead, context switching
-// rescheduling and other possible factors which are present here. 
+// In the theoretical example exact values does not take into account for
+// overhead, context switching rescheduling and other possible factors which are present here. 
 //
 // Commit your repository once you completed this part.
 //
