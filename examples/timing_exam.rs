@@ -40,7 +40,7 @@ const APP: () = {
     #[inline(never)]
     #[task(schedule = [t1], priority = 1)]
     fn t1(cx: t1::Context) {
-        let start = DWT::get_cycle_count();
+        let start = cx.scheduled; 
         asm::bkpt();
         cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();
         asm::bkpt();
@@ -51,16 +51,15 @@ const APP: () = {
 
         // 2) your code here to update T1_MAX_RP and
         // break if deadline missed
-        let end = DWT::get_cycle_count();
         let deadline = 100 * 1_000;
         let prev_rt = unsafe { T1_MAX_RP };
-        let rt = end - start;
+        let rt = start.elapsed().as_cycles();
 
         if rt > prev_rt {
             unsafe { T1_MAX_RP = rt };
         } else if rt > deadline {
-            // asm::bkpt();
-            panic!("task non-schedulable: deadline miss!");
+            asm::bkpt();
+            // panic!("task non-schedulable: deadline miss!");
         }
     }
 
@@ -68,7 +67,7 @@ const APP: () = {
     #[inline(never)]
     #[task(schedule = [t2], resources = [R1, R2], priority = 2)]
     fn t2(mut cx: t2::Context) {
-        let start = DWT::get_cycle_count();
+        let start = cx.scheduled; 
         asm::bkpt();
         cx.schedule.t2(cx.scheduled + 200_000.cycles()).unwrap();
         asm::bkpt();
@@ -92,16 +91,15 @@ const APP: () = {
 
         // 2) your code here to update T2_MAX_RP and
         // break if deadline missed
-        let end = DWT::get_cycle_count();
         let deadline = 200 * 1_000;
         let prev_rt = unsafe { T2_MAX_RP };
-        let rt = end - start;
+        let rt = start.elapsed().as_cycles();
 
         if rt > prev_rt {
             unsafe { T2_MAX_RP = rt };
         } else if rt > deadline {
-            // asm::bkpt();
-            panic!("task non-schedulable: deadline miss!");
+            asm::bkpt();
+            // panic!("task non-schedulable: deadline miss!");
         }
     }
 
@@ -109,7 +107,7 @@ const APP: () = {
     #[inline(never)]
     #[task(schedule = [t3], resources = [R2], priority = 3)]
     fn t3(cx: t3::Context) {
-        let start = DWT::get_cycle_count();
+        let start = cx.scheduled; 
         asm::bkpt();
         cx.schedule.t3(cx.scheduled + 50_000.cycles()).unwrap();
         asm::bkpt();
@@ -124,16 +122,15 @@ const APP: () = {
 
         // 2) your code here to update T3_MAX_RP and
         // break if deadline missed
-        let end = DWT::get_cycle_count();
         let deadline = 50 * 1_000;
         let prev_rt = unsafe { T3_MAX_RP };
-        let rt = end - start;
+        let rt = start.elapsed().as_cycles();
 
         if rt > prev_rt {
             unsafe { T3_MAX_RP = rt };
         } else if rt > deadline {
-            // asm::bkpt();
-            panic!("task non-schedulable: deadline miss!");
+            asm::bkpt();
+            // panic!("task non-schedulable: deadline miss!");
         }
     }
 
@@ -263,7 +260,7 @@ const APP: () = {
 // 3A) Why is there an offset 50240 (instead of 50000)?
 //
 // [Your answer here]
-// CYCCNT = 50251. The offset is caused by system overhead.
+// CYCCNT = 50251. The offset is caused by context switching.
 //
 // 3B) Why is the calculated response time larger than the
 // delays you inserted to simulate workload?
@@ -288,51 +285,53 @@ const APP: () = {
 // Why is the measured value much higher than the scheduled time?
 //
 // [Your answer here]
-// T1 gets interrupted by T3.
+// T1 gets preempted by T3.
 //
 // Now you can continue until you get a first update of `T1_MAX_RP`.
 //
 // What is the first update of `T1_MAX_RP`?
 //
 // [Your answer here]
-// T1_MAX_RP = 10082
+// T1_MAX_RP = 40655.
 //
 // Explain the obtained value in terms of:
 // Execution time, blocking and preemptions
 // (that occurred for this task instance).
 //
 // [Your answer here]
-// The only value present in the first update is the exectuion time, 
-// there is no blocking or preemption. 
+// WCET is ~10_000 cycles due to context switching, T1 does not share resourses so
+// blocking time is 0 and the preemption time is the response time of T3. Since T1 is 
+// preempted by T3.
 //
 // Now continue until you get a first timing measurement for `T2_MAX_RP`.
 //
 // What is the first update of `T2_MAX_RP`?
 //
 // [Your answer here]
-// T2_MAX_RP = 60546
+// T2_MAX_RP = 91134.
 //
 // Now continue until you get a second timing measurement for `T1_MAX_RP`.
 //
-// What is the second update of `T3_MAX_RP`?
+// What is the second update of `T1_MAX_RP`?
 //
 // [Your answer here]
-// T3_MAX_RP = 50251 // first
-// T3_MAX_RP = 30104 // second
+// T1_MAX_RP = 50251 // first
+// T1_MAX_RP = 130104 // second
 //
 // Now you should have ended up in a deadline miss right!!!!
 //
 // Why did this happen?
 //
 // [Your answer here]
-// Nope, no deadline miss(?)
+// Yes, T1 got preempted by both T2 and T3 which caused the task to miss it's deadline.
 //
 // Compare that to the result obtained from your analysis tool.
 //
 // Do they differ, if so why?
 //
 // [Your answer here]
-// Got a lower value, 30 instead of 34 in the theoretical srp analysis.
+// In the theoretical example exact values does not take into overhead, context switching
+// rescheduling and other possible factors which are present here. 
 //
 // Commit your repository once you completed this part.
 //
