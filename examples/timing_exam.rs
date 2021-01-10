@@ -183,9 +183,8 @@ const APP: () = {
 // `cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();`
 //
 // [Your answer here]
-// Instant::now() + cycles, schedules the task immediately + the given cycle count. 
-// Once a task is executed the task is rescheduled at a later time, 
-// of cx.schedule + cycle count.
+// Instant::now() + cycles, schedules the task immediately with the given cycle count. 
+// Once a task is executed the task is rescheduled at a later time, with cx.schedule + cycles.
 //
 // Explain in your own words why we use the latter
 // in order to generate a periodic task.
