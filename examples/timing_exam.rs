@@ -173,8 +173,8 @@ const APP: () = {
 // `cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();`
 //
 // [Your answer here]
-// Once a task is executed the task is rescheduled at a later time, 
-// of cx.schedule + cycle count.
+// The struct Instant contains the cycle count from DWT. 
+// Instant::Now() returns the current value of the counter.
 //
 // Explain in your own words the difference between:
 //
@@ -183,7 +183,7 @@ const APP: () = {
 // `cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();`
 //
 // [Your answer here]
-// Instant::now() + cycles schedules the task immediately + the given cycle count. 
+// Instant::now() + cycles, schedules the task immediately + the given cycle count. 
 // Once a task is executed the task is rescheduled at a later time, 
 // of cx.schedule + cycle count.
 //
@@ -291,7 +291,7 @@ const APP: () = {
 // What is the first update of `T1_MAX_RP`?
 //
 // [Your answer here]
-// T1_MAX_RP = 40655.
+// T1_MAX_RP = 50251
 //
 // Explain the obtained value in terms of:
 // Execution time, blocking and preemptions
@@ -314,8 +314,7 @@ const APP: () = {
 // What is the second update of `T1_MAX_RP`?
 //
 // [Your answer here]
-// T1_MAX_RP = 50251 // first
-// T1_MAX_RP = 130104 // second
+// T1_MAX_RP = 130104
 //
 // Now you should have ended up in a deadline miss right!!!!
 //
