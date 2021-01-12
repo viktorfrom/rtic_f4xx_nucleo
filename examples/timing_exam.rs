@@ -183,7 +183,7 @@ const APP: () = {
 // `cx.schedule.t1(cx.scheduled + 100_000.cycles()).unwrap();`
 //
 // [Your answer here]
-// Instant::now() + cycles, schedules the task immediately with the given cycle count. 
+// Instant::now() + cycles, schedules the task immediately with the given cycle count (current time). 
 // Once a task is executed the task is rescheduled at a later time, with cx.schedule + cycles.
 //
 // Explain in your own words why we use the latter
@@ -290,7 +290,7 @@ const APP: () = {
 // What is the first update of `T1_MAX_RP`?
 //
 // [Your answer here]
-// T1_MAX_RP = 50251
+// T1_MAX_RP = 40655
 //
 // Explain the obtained value in terms of:
 // Execution time, blocking and preemptions
@@ -298,8 +298,8 @@ const APP: () = {
 //
 // [Your answer here]
 // WCET is ~10_000 cycles due to context switching, T1 does not share resourses so
-// blocking time is 0 and the preemption time is the response time of T3. Since T1 is 
-// preempted by T3.
+// blocking time is 0 and the preemption time is the response time of T3, ~30_000. 
+// Since T1 is preempted by T3.
 //
 // Now continue until you get a first timing measurement for `T2_MAX_RP`.
 //
